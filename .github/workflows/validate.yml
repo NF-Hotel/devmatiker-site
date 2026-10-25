@@ -1,0 +1,59 @@
+# Checks devmatiker.com before it is published: the HTML and the CSS against the W3C Nu
+# validator (a warning fails too), and the security headers that _headers must keep.
+# Cloudflare Workers Builds publishes main by itself; this workflow is the gate in front of it.
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: HTML, CSS and security headers
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Validate HTML and CSS (W3C Nu validator 26.10.12)
+        run: >-
+          docker run --rm -v "$PWD/public:/site:ro"
+          ghcr.io/validator/validator@sha256:8f21030474e68e06905cfa801b37376e99c0e37867c653c5b6cd7e2dcaf3f503
+          vnu --Werror --also-check-css --format gnu
+          /site/index.html /site/404.html /site/styles.css
+
+      - name: Check the security headers
+        run: |
+          missing=0
+          for header in \
+            "Content-Security-Policy: default-src 'none'" \
+            "Strict-Transport-Security: max-age=31536000" \
+            "X-Content-Type-Options: nosniff" \
+            "X-Frame-Options: DENY" \
+            "Referrer-Policy:" \
+            "Permissions-Policy:"; do
+            if ! grep -qF -- "$header" public/_headers; then
+              echo "::error file=public/_headers::missing: $header"
+              missing=1
+            fi
+          done
+          exit "$missing"
+
+      - name: Check that the pages load nothing from another origin
+        run: |
+          if grep -nE '(src|href)="(https?:)?//' public/*.html | grep -vE 'href="https://(nfhotel\.devmatiker\.com|devmatiker\.com|github\.com)/'; then
+            echo "::error::a page links a script, style or image from another origin"
+            exit 1
+          fi

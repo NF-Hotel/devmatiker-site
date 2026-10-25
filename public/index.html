@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>devmatiker · Team 2, UCL Odense</title>
+  <meta name="description" content="devmatiker is Team 2 of the Computer Science AP degree (datamatiker) at UCL University College in Odense. We build NF Hotel: a back office, online booking, a mobile app and the operations to run them.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f5f6f4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f1513" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://devmatiker.com/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://devmatiker.com/">
+  <meta property="og:title" content="devmatiker · Team 2, UCL Odense">
+  <meta property="og:description" content="We build, ship and run a hotel system, end to end.">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="devmatiker, home"><span class="brand-prompt" aria-hidden="true">&gt;_</span> devmatiker</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#project">Project</a></li>
+        <li><a href="#how-we-build">How we build</a></li>
+        <li><a href="#team">Team</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="content">
+    <section class="hero" aria-labelledby="hero-title">
+      <p class="eyebrow">Team 2 · Computer Science AP degree (datamatiker) · UCL University College, Odense</p>
+      <h1 id="hero-title">We build, ship and run a hotel system, end to end.</h1>
+      <p class="lead">devmatiker is a student team on the datamatiker programme at UCL in Odense. Our project is <strong>NF Hotel</strong>: the back office for the staff, online booking for the guests, a mobile app, and the servers, pipelines and monitoring that keep it all running.</p>
+      <p class="actions">
+        <a class="button" href="https://nfhotel.devmatiker.com/">Open NF Hotel</a>
+        <a class="button button-secondary" href="https://github.com/NF-Hotel">Our code on GitHub</a>
+      </p>
+    </section>
+
+    <section class="section" id="project" aria-labelledby="project-title">
+      <h2 id="project-title">The project: NF Hotel</h2>
+      <ul class="cards">
+        <li>
+          <article class="card" aria-labelledby="card-back-office">
+            <h3 id="card-back-office">Back office</h3>
+            <p>Staff manage bookings, rooms and guests in a web application. Each role (Manager, Receptionist, Housekeeping) sees and does only what it is allowed to.</p>
+          </article>
+        </li>
+        <li>
+          <article class="card" aria-labelledby="card-booking">
+            <h3 id="card-booking">Guest booking</h3>
+            <p>Guests find a free room and book it online, and later open their own booking with the booking number and their e-mail address.</p>
+          </article>
+        </li>
+        <li>
+          <article class="card" aria-labelledby="card-mobile">
+            <h3 id="card-mobile">Mobile app</h3>
+            <p>Housekeeping and reception work with the rooms from a Flutter app that talks to the same API as the back office.</p>
+          </article>
+        </li>
+        <li>
+          <article class="card" aria-labelledby="card-operations">
+            <h3 id="card-operations">Operations</h3>
+            <p>We run it ourselves: our own server, automatic deploys when every check is green, monitoring with alerts, backups and a written plan for when things break.</p>
+          </article>
+        </li>
+      </ul>
+    </section>
+
+    <section class="section" id="how-we-build" aria-labelledby="how-we-build-title">
+      <h2 id="how-we-build-title">How we build it</h2>
+      <dl class="facts">
+        <div>
+          <dt>Application</dt>
+          <dd>C# and .NET with Clean Architecture: a Blazor web application and a separate database API, so only one process ever touches the database.</dd>
+        </div>
+        <div>
+          <dt>Data</dt>
+          <dd>PostgreSQL, with migrations applied by the pipeline and nightly encrypted backups copied off the server.</dd>
+        </div>
+        <div>
+          <dt>Mobile</dt>
+          <dd>Flutter, signing in with a short-lived staff token and no shared secret in the app.</dd>
+        </div>
+        <div>
+          <dt>Platform</dt>
+          <dd>Docker containers on a Proxmox virtual machine, reached privately over Tailscale and publicly through Cloudflare Tunnel, with no port opened at home.</dd>
+        </div>
+        <div>
+          <dt>Pipeline</dt>
+          <dd>GitHub Actions: build, tests, end-to-end tests in a browser, a security scan of the running site, image scanning and signed releases, then a deploy with automatic rollback.</dd>
+        </div>
+        <div>
+          <dt>Monitoring</dt>
+          <dd>Prometheus, Loki and Grafana, with service level objectives and alerts in Discord.</dd>
+        </div>
+        <div>
+          <dt>Process</dt>
+          <dd>Every piece of work is planned as a milestone with measurable criteria, reviewed, and decided in architecture decision records.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="section" id="team" aria-labelledby="team-title">
+      <h2 id="team-title">The team</h2>
+      <p>We are Team 2 on the Computer Science AP degree (datamatiker) at UCL University College in Odense, Denmark. The name says what we are: datamatikere who develop. NF Hotel is our semester project, built as if it were going into real use.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><small>devmatiker · Team 2 · UCL University College, Odense</small></p>
+    <p><small>This page is static: no cookies, no tracking and no scripts. Source on <a href="https://github.com/NF-Hotel/devmatiker-site">GitHub</a>.</small></p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,17 @@
+// Cloudflare Workers configuration of devmatiker.com: static files only, no code.
+// Workers Builds runs `npx wrangler deploy` on every push to main and publishes public/.
+{
+  "name": "devmatiker",
+  "compatibility_date": "2025-10-01",
+  "assets": {
+    "directory": "./public",
+    // An unknown path gets public/404.html with status 404.
+    "not_found_handling": "404-page"
+  },
+  // The custom domains, kept in code so a deploy never drops one that was added in the dashboard.
+  "routes": [
+    { "pattern": "devmatiker.com", "custom_domain": true },
+    { "pattern": "www.devmatiker.com", "custom_domain": true }
+  ],
+  "workers_dev": true
+}

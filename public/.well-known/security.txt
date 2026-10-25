@@ -1,0 +1,4 @@
+Contact: https://github.com/NF-Hotel/devmatiker-site/security/advisories/new
+Expires: 2027-10-25T00:00:00.000Z
+Preferred-Languages: en, da
+Canonical: https://devmatiker.com/.well-known/security.txt

@@ -1,0 +1,5 @@
+# Wrangler and Node, if the site is ever built or deployed locally.
+.wrangler/
+node_modules/
+.dev.vars
+.env
